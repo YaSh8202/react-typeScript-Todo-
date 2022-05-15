@@ -1,7 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef,useContext } from "react";
 import classes from './NewTodo.module.css';
 
-const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = (props) => {
+import { TodosContext } from "../store/todos-context";
+
+const NewTodo: React.FC = () => {
+
+  const todosCtx = useContext(TodosContext);
 
   const todoTextInputRef = useRef<HTMLInputElement>(null);// we have to specify about which type of element this ref will point to
 
@@ -13,7 +17,7 @@ const NewTodo: React.FC<{ onAddTodo: (text: string) => void }> = (props) => {
       // throw an error
       return;
     }
-    props.onAddTodo(enteredText);
+    todosCtx.addTodo(enteredText);
   }
 
   return <form className={classes.form} onSubmit={submitHandler} >
